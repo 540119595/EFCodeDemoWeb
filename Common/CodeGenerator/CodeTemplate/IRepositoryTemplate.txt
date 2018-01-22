@@ -1,0 +1,9 @@
+﻿namespace {IRepositoriesNamespace}
+{
+    using System;
+	using {ModelsNamespace};
+    public interface I{ModelTypeName}Repository : IRepository<{ModelTypeName}, {KeyTypeName}>
+    {
+		// 这是IRepositoryTemplate.txt代码模板生成
+    }
+}

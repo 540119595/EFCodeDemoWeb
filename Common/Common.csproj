@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <!--<AssemblyOriginatorKeyFile>DemoKey.pfx</AssemblyOriginatorKeyFile>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="CodeGenerator\CodeTemplate\IRepositoryTemplate.txt" />
+    <None Remove="CodeGenerator\CodeTemplate\IServiceTemplate.txt" />
+    <None Remove="CodeGenerator\CodeTemplate\RepositoryTemplate.txt" />
+    <None Remove="CodeGenerator\CodeTemplate\ServiceTemplate.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="CodeGenerator\CodeTemplate\IRepositoryTemplate.txt" />
+    <EmbeddedResource Include="CodeGenerator\CodeTemplate\IServiceTemplate.txt" />
+    <EmbeddedResource Include="CodeGenerator\CodeTemplate\RepositoryTemplate.txt" />
+    <EmbeddedResource Include="CodeGenerator\CodeTemplate\ServiceTemplate.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+  </ItemGroup>
+
+</Project>

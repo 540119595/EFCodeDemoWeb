@@ -1,0 +1,16 @@
+﻿namespace {ServicesNamespace}.{AreasName}
+{
+    using System;
+	using {IRepositoriesNamespace}.{AreasName};
+	using {IServicsNamespace};
+	using {IServicsNamespace}.{AreasName};
+	using {ModelsNamespace};
+    public class {ModelTypeName}Service : BaseService<{ModelTypeName}, {KeyTypeName}>, I{ModelTypeName}Service
+    {
+        public {ModelTypeName}Service(I{ModelTypeName}Repository repository) : base(repository)
+        {
+			// 这是ServiceTemplate代码模板生成（添加方法前，请先对接口I{ModelTypeName}Service进行修订）
+        }
+    }
+}
+

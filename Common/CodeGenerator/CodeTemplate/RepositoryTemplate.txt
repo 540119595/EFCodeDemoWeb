@@ -1,0 +1,14 @@
+﻿namespace {RepositoriesNamespace}.{AreasName}
+{
+    using System;
+	using {IRepositoriesNamespace};
+	using {IRepositoriesNamespace}.{AreasName};
+	using {ModelsNamespace};
+    public class {ModelTypeName}Repository : BaseRepository<{ModelTypeName}, {KeyTypeName}>, I{ModelTypeName}Repository
+    {
+        public {ModelTypeName}Repository(DefaultDbContext dbContext) : base(dbContext)
+        {
+			// 这是RepositoryTemplate.txt代码模板生成（添加方法前，请先对接口I{ModelTypeName}Repository进行修订）
+        }
+    }
+}

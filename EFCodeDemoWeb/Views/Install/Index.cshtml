@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Index", "Install", FormMethod.Post))
+        {
+            <input type="text" name="uname" value="lyf" />
+            <br />
+            <input type="submit" value="生成权限" style="height:100px;width:220px;font-size:3em;" />
+        }
+    </div>
+    <br />
+    <div>
+        @using (Html.BeginForm("Creating", "Install", FormMethod.Post))
+        {
+            <input type="submit" value="生成仓储文件" style="height:100px;width:300px;font-size:3em;" />
+        }
+    </div>
+</body>
+</html>
