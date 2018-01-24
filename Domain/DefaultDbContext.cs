@@ -20,6 +20,7 @@ namespace Domain
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Model.AddEntityType(typeof(User));
+            //modelBuilder.Model.AddEntityType(typeof(UserInfo));
         }
         
         /// <summary>

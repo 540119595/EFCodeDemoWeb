@@ -20,7 +20,8 @@ namespace EFCodeDemoWeb.Areas.Sys.Controllers
             {
                 Name = "admin",
                 TrueName = "管理员",
-                CreatTime = DateTime.Now
+                CreatTime = DateTime.Now,
+                UserInfos = new Domain.Models.Sys.UserInfo { Address = "昆明" }
             };
             _userService.Add(user);//增
             var u = _userService.GetSingle(user.Id);//查

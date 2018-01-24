@@ -45,23 +45,17 @@
         /// <summary>
         /// 是否锁定
         /// </summary>
-        public bool IsLocked { get; set; }
+        public bool IsLocked { get; set; } = true;
 
         /// <summary>
         /// 是否启用
         /// </summary>
-        public bool IsEnable { get; set; }
-
-        /// <summary>
-        /// 用户组
-        /// </summary>
-        [StringLength(64)]
-        public string GroupId { get; set; }
+        public bool IsEnable { get; set; } = false;
 
         /// <summary>
         /// 创建时间
         /// </summary>
-        public System.DateTime CreatTime { get; set; }
+        public System.DateTime CreatTime { get; set; } = System.DateTime.Now;
 
         /// <summary>
         /// 最后登录时间
@@ -72,5 +66,26 @@
         /// 用户类型
         /// </summary>
         public int UType { get; set; }
+
+        //================================以下是做表关联================================//
+
+        /// <summary>
+        /// 用户附加信息
+        /// </summary>
+        public UserInfo UserInfos { get; set; }
+
+        /// <summary>
+        /// 用户组Id
+        /// 外键
+        /// </summary>
+        [ForeignKey("UserGroup")]
+        public string GroupId { get; set; }
+
+        /// <summary>
+        /// 用户分组
+        /// </summary>
+        public UserGroup UserGroup { get; set; }
+
+        //public virtual System.Collections.Generic.ICollection<UserInfo> UserInfos { get; set; }
     }
 }
