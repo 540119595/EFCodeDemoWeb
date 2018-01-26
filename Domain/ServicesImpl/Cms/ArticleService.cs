@@ -5,7 +5,7 @@ namespace Domain.ServicesImpl.Cms
 	using Domain.IServices;
 	using Domain.IServices.Cms;
 	using Domain.Models.Cms;
-    public class ArticleService : BaseService<Article, String>, IArticleService
+    public partial class ArticleService : BaseService<Article, String>, IArticleService
     {
         public ArticleService(IArticleRepository repository) : base(repository)
         {

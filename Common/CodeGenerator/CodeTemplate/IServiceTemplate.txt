@@ -2,7 +2,7 @@
 {
     using System;
 	using {ModelsNamespace};
-    public interface I{ModelTypeName}Service : IService<{ModelTypeName}, {KeyTypeName}>
+    public partial interface I{ModelTypeName}Service : IService<{ModelTypeName}, {KeyTypeName}>
     {
 		// 这是IServiceTemplate.txt代码模板生成
     }

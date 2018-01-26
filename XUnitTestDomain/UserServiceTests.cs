@@ -17,11 +17,16 @@ namespace XUnitTestDomain
         private DefaultDbContext _context = null;
 
         private UserService _userService = null;
+        private UserRepository _userRepository = null;
+        private RoleService _roleService = null;
+        private UserRoleService _userRoleService = null;
 
         private User _user = null;
         private UserInfo _userInfo = null;
         private UserGroup _userGroup = null;
         private List<User> _users = null;
+        private Role _role = null;
+        private UserRole _userRole = null;
 
         public UserServiceTests()
         {
@@ -30,10 +35,13 @@ namespace XUnitTestDomain
                 .Options;
             _context = new DefaultDbContext(options);
 
-            _context.Database.EnsureDeleted();
-            _context.Database.EnsureCreated();
+            _context.Database.EnsureDeleted();  // 删除数据库
+            _context.Database.EnsureCreated();  // 创建数据库
 
-            _userService = new UserService(new UserRepository(_context));
+            _userRepository = new UserRepository(_context);
+            _userService = new UserService(_userRepository);
+            _roleService = new RoleService(new RoleRepository(_context));
+            _userRoleService = new UserRoleService(new UserRoleRepository(_context));
 
             _userInfo = new UserInfo { Address = "昆明" };
             _userGroup = new UserGroup { Name = "游客", PId = "-1", Seq = 1, Description = "测试添加，可以删除。" };
@@ -64,10 +72,30 @@ namespace XUnitTestDomain
                 _user,
                 tmpUser
             };
+            _role = new Role
+            {
+                Name = "管理员",
+                PId = "-1",
+                Description = "测试添加，可以删除。"
+            };
+            _userRole = new UserRole { User = _user, Role = _role };
         }
 
         [Fact]
-        public void Add_2_User_And_IsEqual_Two()
+        public void Add_2_User_And_IsEqual_Two_ByRepository()
+        {
+            // Arrange
+            _userRepository.AddRange(_users);
+
+            // Act
+            var usersCount = _userRepository.Count(u => u.UserGroup.Id == _userGroup.Id);
+
+            // Assert
+            Assert.Equal(2, usersCount);
+        }
+
+        [Fact]
+        public void Add_2_User_And_IsEqual_Two_ByService()
         {
             // Arrange
             _userService.AddRange(_users);
@@ -137,6 +165,35 @@ namespace XUnitTestDomain
             // Assert
             Assert.NotEqual(UTYPE, getUser.UType);
             Assert.Equal(1, editCount);
+        }
+
+        [Fact]
+        public void Add_Role_And_IsExist()
+        {
+            // Arrange
+            _roleService.Add(_role);
+
+            // Act
+            var getRole = _roleService.GetSingle(r => r.Id == _role.Id);
+
+            // Assert
+            Assert.NotNull(getRole);
+        }
+
+        [Fact]
+        public void Add_User_Role_And_IsExist()
+        {
+            // Arrange
+            _userService.Add(_user);
+            _roleService.Add(_role);
+            _userRoleService.Add(_userRole);
+
+            // Act
+            var getUserRole = _userRoleService.GetSingle(ur => ur.Id == _userRole.Id);
+
+            // Assert
+            Assert.Equal(_user.Id, getUserRole.UserId);
+            Assert.Equal(_role.Id, getUserRole.RoleId);
         }
     }
 }

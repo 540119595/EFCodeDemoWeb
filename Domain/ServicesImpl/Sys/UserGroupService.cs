@@ -5,7 +5,7 @@ namespace Domain.ServicesImpl.Sys
 	using Domain.IServices;
 	using Domain.IServices.Sys;
 	using Domain.Models.Sys;
-    public class UserGroupService : BaseService<UserGroup, String>, IUserGroupService
+    public partial class UserGroupService : BaseService<UserGroup, String>, IUserGroupService
     {
         public UserGroupService(IUserGroupRepository repository) : base(repository)
         {

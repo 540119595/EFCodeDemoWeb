@@ -5,7 +5,7 @@ namespace Domain.ServicesImpl.Sys
 	using Domain.IServices;
 	using Domain.IServices.Sys;
 	using Domain.Models.Sys;
-    public class UserInfoService : BaseService<UserInfo, String>, IUserInfoService
+    public partial class UserInfoService : BaseService<UserInfo, String>, IUserInfoService
     {
         public UserInfoService(IUserInfoRepository repository) : base(repository)
         {

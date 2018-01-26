@@ -13,4 +13,12 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IRepositorys\Cms\" />
+    <Folder Include="IServices\Cms\" />
+    <Folder Include="RepositorysImpl\Cms\" />
+    <Folder Include="RepositorysImpl\Sys\" />
+    <Folder Include="ServicesImpl\Cms\" />
+  </ItemGroup>
+
 </Project>

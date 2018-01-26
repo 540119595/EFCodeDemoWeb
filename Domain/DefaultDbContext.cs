@@ -3,6 +3,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Domain.Models.Sys;
+using System.Reflection;
+using Domain.Models;
 
 namespace Domain
 {
@@ -19,10 +21,21 @@ namespace Domain
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Model.AddEntityType(typeof(User));
-            //modelBuilder.Model.AddEntityType(typeof(UserInfo));
+            var entityTypes = Assembly.Load(new AssemblyName("Domain")).GetTypes()
+                .Where(type => !string.IsNullOrWhiteSpace(type.Namespace))//命名空间校验
+                .Where(type => type.GetTypeInfo().IsClass)
+                .Where(type => type.GetTypeInfo().BaseType != null)//检索对象的类型信息，然后可以使用该信息获取接口的类型信息
+                .Where(type => type.GetTypeInfo().BaseType.Equals(typeof(BaseEntity)))//
+                .Where(type => typeof(BaseEntity).IsAssignableFrom(type)).ToList();//验证实例是否可以分配给当前类型的实例
+
+            foreach (var entityType in entityTypes)
+            {
+                //  防止重复附加模型，否则会在生成指令中报错
+                if (modelBuilder.Model.FindEntityType(entityType) == null)
+                    modelBuilder.Model.AddEntityType(entityType);
+            }
         }
-        
+
         /// <summary>
         /// 编辑实体
         /// </summary>

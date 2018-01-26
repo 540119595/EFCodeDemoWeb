@@ -25,8 +25,8 @@
         /// 描述
         /// </summary>
         public string Description { get; set; }
-                
-        
-        public virtual System.Collections.Generic.ICollection<User> Users { get; set; }
+
+
+        public virtual System.Collections.Generic.ICollection<User> Users { get; set; } = new System.Collections.Generic.HashSet<User>();
     }
 }

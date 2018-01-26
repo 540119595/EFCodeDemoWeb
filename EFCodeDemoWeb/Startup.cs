@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 
 namespace EFCodeDemoWeb
@@ -20,15 +22,15 @@ namespace EFCodeDemoWeb
     public class Startup
     {
         public IConfiguration _configuration { get; }    // 读配置文件appsettings.json
-        public static ILoggerRepository _repository { get; set; }
+        public static ILoggerRepository _loggerRepository { get; set; }
 
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;              // 读配置文件appsettings.json
 
             // 初始化log4net
-            _repository = LogManager.CreateRepository("LogRepository");
-            Log4NetHelper.SetConfig(_repository, "log4net.config");
+            _loggerRepository = LogManager.CreateRepository("LoggerRepository");
+            Log4NetHelper.SetConfig(_loggerRepository, "log4net.config");
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -39,15 +41,17 @@ namespace EFCodeDemoWeb
             services.AddDbContext<DefaultDbContext>(o => o.UseMySql(_configuration.GetConnectionString("MySqlConnection"))); // 读配置文件appsettings.json
 
             // Ioc
-            services.AddTransient<Domain.IRepositorys.Sys.IUserRepository, Domain.RepositorysImpl.Sys.UserRepository>();
-            services.AddTransient<Domain.IServices.Sys.IUserService, Domain.ServicesImpl.Sys.UserService>();
+            //services.AddTransient<Domain.IRepositorys.Sys.IUserRepository, Domain.RepositorysImpl.Sys.UserRepository>();
+            //services.AddTransient<Domain.IServices.Sys.IUserService, Domain.ServicesImpl.Sys.UserService>();
+            Register(services, "Domain.RepositorysImpl", "Domain.IRepositorys");
+            Register(services, "Domain.ServicesImpl", "Domain.IServices");
 
             #region 授权
             services.AddAuthorization(options =>
             {
                 var sp = services.BuildServiceProvider();
                 var userService = sp.GetService<Domain.IServices.Sys.IUserService>();
-                var user = userService.GetSingle(u => u.Name == "admin1");
+                //var user = userService.GetSingle(u => u.Name == "admin1");
 
                 //这个集合模拟用户权限表,可从数据库中查询出来
                 var permInfos = new List<PermInfo> {
@@ -104,6 +108,9 @@ namespace EFCodeDemoWeb
             // 默认文件夹
             app.UseStaticFiles();
 
+            //验证中间件
+            app.UseAuthentication();
+
             // 路由
             app.UseMvc(routes =>
             {
@@ -119,5 +126,23 @@ namespace EFCodeDemoWeb
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+        public static void Register(IServiceCollection services, string implementationAssemblyName, string interfaceAssemblyName)
+        {
+            var domains = Assembly.Load("Domain");
+            var implementationTypes = domains.DefinedTypes.Where(t =>
+                    t.IsClass && !t.IsAbstract && !t.IsGenericType
+                    && !t.IsNested && t.Namespace.StartsWith(implementationAssemblyName));
+            foreach (var type in implementationTypes)
+            {
+                var interfaceTypeName = type.Namespace.Replace(implementationAssemblyName, interfaceAssemblyName) + ".I" + type.Name;
+                var interfaceType = domains.GetType(interfaceTypeName);
+                if (interfaceType.IsAssignableFrom(type))
+                {
+                    services.AddTransient(interfaceType, type);
+                }
+            }
+        }
+
     }
 }

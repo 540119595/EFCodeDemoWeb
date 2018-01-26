@@ -29,7 +29,7 @@
         /// </summary>
         [StringLength(128)]
         public string Pwd { get; set; }
-        
+
         /// <summary>
         /// 电子邮箱
         /// </summary>
@@ -72,20 +72,20 @@
         /// <summary>
         /// 用户附加信息
         /// </summary>
-        public UserInfo UserInfos { get; set; }
+        [ForeignKey("UserId")]
+        public virtual UserInfo UserInfos { get; set; }
 
         /// <summary>
         /// 用户组Id
-        /// 外键
         /// </summary>
-        [ForeignKey("UserGroup")]
         public string GroupId { get; set; }
 
         /// <summary>
         /// 用户分组
         /// </summary>
-        public UserGroup UserGroup { get; set; }
+        public virtual UserGroup UserGroup { get; set; }
 
+        public virtual System.Collections.Generic.ICollection<UserRole> UserRoles { get; set; } = new System.Collections.Generic.HashSet<UserRole>();
         //public virtual System.Collections.Generic.ICollection<UserInfo> UserInfos { get; set; }
     }
 }
