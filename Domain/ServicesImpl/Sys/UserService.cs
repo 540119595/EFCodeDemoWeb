@@ -1,4 +1,5 @@
-﻿using Domain.IRepositorys.Sys;
+﻿using Common.BaseDomain;
+using Domain.IRepositorys.Sys;
 using Domain.IServices;
 using Domain.IServices.Sys;
 using Domain.Models.Sys;

@@ -1,9 +1,8 @@
-﻿namespace Domain.IRepositorys
+﻿namespace Common.BaseDomain
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
-    using Domain.Models;
 
     public interface IRepository<T, TKey> : IDisposable where T : class, IBaseEntity<TKey>
     {
@@ -69,7 +68,7 @@
         /// <param name="entity"></param>
         /// <returns></returns>
         int Edit(T entity);
-        
+
         /// <summary>
         /// 存在判断
         /// </summary>

@@ -1,7 +1,8 @@
 ﻿using Common.Base;
+using Common.BaseDomain;
+using Common.Extensions;
 using Common.Filters;
 using Common.Helpers;
-using Domain;
 using log4net;
 using log4net.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -37,6 +38,27 @@ namespace EFCodeDemoWeb
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // 服务注入mvc
+            //services.AddMvc();
+            // 全局异常处理过滤器
+            services.AddMvc(option =>
+            {
+                option.Filters.Add(new GlobalExceptionFilter());
+                option.Filters.Add(new GlobalActionFilter());
+            });
+
+            // 启用MemoryCache
+            services.AddMemoryCache();
+
+            // 启用Redis
+            services.AddDistributedRedisCache(option =>
+            {
+                // Redis连接字符串
+                option.Configuration = _configuration.GetConnectionString("RedisConnection");
+                // Redis实例名称
+                option.InstanceName = "待定";
+            });
+
             // 数据库连接
             services.AddDbContext<DefaultDbContext>(o => o.UseMySql(_configuration.GetConnectionString("MySqlConnection"))); // 读配置文件appsettings.json
 
@@ -86,15 +108,6 @@ namespace EFCodeDemoWeb
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);//.FromSeconds(20);
             });
             #endregion 授权  
-
-            // 服务注入mvc
-            //services.AddMvc();
-            // 全局异常处理过滤器
-            services.AddMvc(option =>
-            {
-                option.Filters.Add(new GlobalExceptionFilter());
-                option.Filters.Add(new GlobalActionFilter());
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,9 +121,9 @@ namespace EFCodeDemoWeb
             // 默认文件夹
             app.UseStaticFiles();
 
-            //验证中间件
+            // 验证中间件
             app.UseAuthentication();
-
+            
             // 路由
             app.UseMvc(routes =>
             {

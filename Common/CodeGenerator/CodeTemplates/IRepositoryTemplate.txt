@@ -1,6 +1,7 @@
 ﻿namespace {IRepositoriesNamespace}
 {
     using System;
+	using Common.BaseDomain;
 	using {ModelsNamespace};
     public interface I{ModelTypeName}Repository : IRepository<{ModelTypeName}, {KeyTypeName}>
     {

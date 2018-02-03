@@ -1,5 +1,6 @@
 ﻿namespace Domain.Models.Cms
 {
+    using Common.BaseDomain;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 

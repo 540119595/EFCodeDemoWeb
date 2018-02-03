@@ -1,10 +1,8 @@
-﻿namespace Domain.IServices
+﻿namespace Common.BaseDomain
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
-    using Domain.IRepositorys;
-    using Domain.Models;
 
     public abstract class BaseService<T, TKey> : IService<T, TKey> where T : class, IBaseEntity<TKey>
     {

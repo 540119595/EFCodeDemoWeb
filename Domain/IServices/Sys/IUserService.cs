@@ -1,4 +1,5 @@
-﻿using Domain.Models.Sys;
+﻿using Common.BaseDomain;
+using Domain.Models.Sys;
 
 namespace Domain.IServices.Sys
 {

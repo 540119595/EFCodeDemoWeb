@@ -1,8 +1,13 @@
-﻿
+﻿@model DateTime?
 @{
     ViewData["Title"] = "Index";
 }
 
+
 <h2>Index</h2>
 
 <a href="~/Install/Index">Install</a>
+
+
+<h3>Current Time: @DateTime.Now.TimeOfDay.ToString()</h3>
+<h3>Cached Time: @(Model == null ? "No cached entry found" : Model.Value.TimeOfDay.ToString())</h3>

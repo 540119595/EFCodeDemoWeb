@@ -1,6 +1,7 @@
 namespace Domain.RepositorysImpl.Cms
 {
     using System;
+	using Common.BaseDomain;
 	using Domain.IRepositorys;
 	using Domain.IRepositorys.Cms;
 	using Domain.Models.Cms;

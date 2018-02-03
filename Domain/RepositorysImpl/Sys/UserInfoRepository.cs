@@ -1,6 +1,7 @@
 namespace Domain.RepositorysImpl.Sys
 {
     using System;
+	using Common.BaseDomain;
 	using Domain.IRepositorys;
 	using Domain.IRepositorys.Sys;
 	using Domain.Models.Sys;

@@ -1,6 +1,7 @@
 ﻿namespace {IServicsNamespace}
 {
     using System;
+	using Common.BaseDomain;
 	using {ModelsNamespace};
     public partial interface I{ModelTypeName}Service : IService<{ModelTypeName}, {KeyTypeName}>
     {

@@ -1,3 +1,4 @@
+using Common.BaseDomain;
 using Domain;
 using Domain.Models.Sys;
 using Domain.RepositorysImpl.Sys;
@@ -5,6 +6,7 @@ using Domain.ServicesImpl.Sys;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Xunit;
 
 namespace XUnitTestDomain
@@ -30,8 +32,7 @@ namespace XUnitTestDomain
 
         public UserServiceTests()
         {
-            var options = new DbContextOptionsBuilder<DefaultDbContext>()
-                .UseInMemoryDatabase(databaseName: "MemoryDB")  // 使用内存库
+            var options = new DbContextOptionsBuilder<DefaultDbContext>().UseInMemoryDatabase(databaseName: "MemoryDB")  // 使用内存库
                 .Options;
             _context = new DefaultDbContext(options);
 
@@ -194,6 +195,58 @@ namespace XUnitTestDomain
             // Assert
             Assert.Equal(_user.Id, getUserRole.UserId);
             Assert.Equal(_role.Id, getUserRole.RoleId);
+        }
+
+        [Fact]
+        public void Add_Users_And_GetTime()
+        {
+            // Arrange
+            for (int i = 0; i < 16; i++)
+            {
+                User tmpUser = new User
+                {
+                    Name = "admin" + i,
+                    TrueName = "管理员" + i,
+                    CreatTime = DateTime.Now,
+                    Email = EMAIL,
+                    Phone = "12345678901",
+                    UType = 1,
+                    UserInfos = _userInfo,
+                    UserGroup = _userGroup
+                };
+                _userService.Add(tmpUser);
+            }
+
+            // Act
+            Stopwatch watch = new Stopwatch();
+            watch.Start();//开始计时
+            var userList = _userService.Get();
+            watch.Stop();//停止计时
+            long one = watch.ElapsedMilliseconds;
+
+            watch.Restart();//
+            userList = _userService.GetByCache();
+            watch.Stop();//停止计时
+            long two = watch.ElapsedMilliseconds;
+
+            watch.Restart();//
+            userList = _userService.GetByCache();
+            watch.Stop();//停止计时
+            long three = watch.ElapsedMilliseconds;
+
+            watch.Restart();//
+            userList = _userService.GetByCache2();
+            watch.Stop();//停止计时
+            long four = watch.ElapsedMilliseconds;
+
+            watch.Restart();//
+            userList = _userService.GetByCache2();
+            watch.Stop();//停止计时
+            long five = watch.ElapsedMilliseconds;
+
+            // Assert
+            Assert.True(two < one);
+            Assert.True(three < one);
         }
     }
 }

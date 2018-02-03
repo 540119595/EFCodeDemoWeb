@@ -1,15 +1,17 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using Common.BaseDomain;
 using Domain.IServices;
 using Domain.IServices.Sys;
 using Domain.Models.Sys;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Security.Cryptography;
 
 namespace Domain.ServicesImpl.Sys
 {
     public partial class UserService : BaseService<User, string>, IUserService
     {
-        private const int saltLenght = 6;  //定义Salt值的长度
-        private byte[] iv;
+        private const int SALT_LENGTH = 6;  //定义Salt值的长度
 
         /// <summary>
         /// 创建一个随机的Salt值
@@ -19,7 +21,7 @@ namespace Domain.ServicesImpl.Sys
         {
             //生成一个加密的随机数
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-            byte[] buff = new byte[saltLenght];
+            byte[] buff = new byte[SALT_LENGTH];
             rng.GetBytes(buff);
             //返回一个Base64随机数的字符串
             return Convert.ToBase64String(buff);
@@ -41,6 +43,16 @@ namespace Domain.ServicesImpl.Sys
 
             //返回哈希后的值
             return hashString;
+        }
+        
+        public IList<User> GetByCache(Expression<Func<User, bool>> @where = null)
+        {
+            return Get(where);
+        }
+
+        public IList<User> GetByCache2(Expression<Func<User, bool>> @where = null)
+        {
+            return Get(where);
         }
     }
 }

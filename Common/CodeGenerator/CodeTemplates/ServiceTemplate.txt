@@ -1,6 +1,7 @@
 ﻿namespace {ServicesNamespace}.{AreasName}
 {
-    using System;
+    using System;	
+	using Common.BaseDomain;
 	using {IRepositoriesNamespace}.{AreasName};
 	using {IServicsNamespace};
 	using {IServicsNamespace}.{AreasName};

@@ -1,4 +1,4 @@
-﻿using Domain.Models;
+﻿using Common.BaseDomain;
 using System;
 using System.IO;
 using System.Linq;
@@ -166,7 +166,7 @@ namespace Common.CodeGenerator
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var content = string.Empty;
-            using (var stream = currentAssembly.GetManifestResourceStream($"{currentAssembly.GetName().Name}.CodeGenerator.CodeTemplate.{templateName}"))
+            using (var stream = currentAssembly.GetManifestResourceStream($"{currentAssembly.GetName().Name}.CodeGenerator.CodeTemplates.{templateName}"))
             {
                 if (stream != null)
                 {

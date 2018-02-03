@@ -1,6 +1,7 @@
 namespace Domain.ServicesImpl.Sys
 {
-    using System;
+    using System;	
+	using Common.BaseDomain;
 	using Domain.IRepositorys.Sys;
 	using Domain.IServices;
 	using Domain.IServices.Sys;
