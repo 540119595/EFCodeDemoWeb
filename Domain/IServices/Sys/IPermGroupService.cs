@@ -1,6 +1,7 @@
 namespace Domain.IServices.Sys
 {
     using System;
+	using Common.BaseDomain;
 	using Domain.Models.Sys;
     public partial interface IPermGroupService : IService<PermGroup, String>
     {

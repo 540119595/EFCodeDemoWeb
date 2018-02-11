@@ -1,6 +1,7 @@
 namespace Domain.ServicesImpl.Cms
 {
-    using System;
+    using System;	
+	using Common.BaseDomain;
 	using Domain.IRepositorys.Cms;
 	using Domain.IServices;
 	using Domain.IServices.Cms;

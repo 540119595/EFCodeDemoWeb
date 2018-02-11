@@ -1,6 +1,7 @@
 ﻿namespace {RepositoriesNamespace}.{AreasName}
 {
     using System;
+	using Common.BaseDomain;
 	using {IRepositoriesNamespace};
 	using {IRepositoriesNamespace}.{AreasName};
 	using {ModelsNamespace};

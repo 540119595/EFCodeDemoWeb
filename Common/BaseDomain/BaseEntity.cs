@@ -1,4 +1,4 @@
-﻿namespace Domain.Models
+﻿namespace Common.BaseDomain
 {
     using System;
     using System.ComponentModel.DataAnnotations;

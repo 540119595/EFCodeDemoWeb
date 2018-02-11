@@ -123,7 +123,7 @@ namespace EFCodeDemoWeb
 
             // 验证中间件
             app.UseAuthentication();
-
+            
             // 路由
             app.UseMvc(routes =>
             {

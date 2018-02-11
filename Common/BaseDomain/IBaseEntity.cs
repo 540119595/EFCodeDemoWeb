@@ -1,4 +1,4 @@
-﻿namespace Domain.Models
+﻿namespace Common.BaseDomain
 {
     /// <summary>
     /// 所有数据表实体类都必须实现此接口

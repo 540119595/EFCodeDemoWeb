@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
-using Domain.Models.Sys;
-using System.Reflection;
-using Domain.Models;
-
-namespace Domain
+﻿namespace Common.BaseDomain
 {
+    using System;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using Microsoft.EntityFrameworkCore;
+    using System.Reflection;
+
     public class DefaultDbContext : DbContext
     {
         public DefaultDbContext(DbContextOptions options) : base(options)

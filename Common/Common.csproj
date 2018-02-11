@@ -8,25 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="CodeGenerator\CodeTemplate\IRepositoryTemplate.txt" />
-    <None Remove="CodeGenerator\CodeTemplate\IServiceTemplate.txt" />
-    <None Remove="CodeGenerator\CodeTemplate\RepositoryTemplate.txt" />
-    <None Remove="CodeGenerator\CodeTemplate\ServiceTemplate.txt" />
+    <None Remove="CodeGenerator\CodeTemplates\IRepositoryTemplate.txt" />
+    <None Remove="CodeGenerator\CodeTemplates\IServiceTemplate.txt" />
+    <None Remove="CodeGenerator\CodeTemplates\RepositoryTemplate.txt" />
+    <None Remove="CodeGenerator\CodeTemplates\ServiceTemplate.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="CodeGenerator\CodeTemplate\IRepositoryTemplate.txt" />
-    <EmbeddedResource Include="CodeGenerator\CodeTemplate\IServiceTemplate.txt" />
-    <EmbeddedResource Include="CodeGenerator\CodeTemplate\RepositoryTemplate.txt" />
-    <EmbeddedResource Include="CodeGenerator\CodeTemplate\ServiceTemplate.txt" />
+    <EmbeddedResource Include="CodeGenerator\CodeTemplates\IRepositoryTemplate.txt" />
+    <EmbeddedResource Include="CodeGenerator\CodeTemplates\IServiceTemplate.txt" />
+    <EmbeddedResource Include="CodeGenerator\CodeTemplates\RepositoryTemplate.txt" />
+    <EmbeddedResource Include="CodeGenerator\CodeTemplates\ServiceTemplate.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Dora.Interception" Version="2.0.0" />
     <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
   </ItemGroup>
 
 </Project>

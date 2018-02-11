@@ -1,6 +1,7 @@
 namespace Domain.IRepositorys.Cms
 {
     using System;
+	using Common.BaseDomain;
 	using Domain.Models.Cms;
     public interface IArticleRepository : IRepository<Article, String>
     {

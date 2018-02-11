@@ -1,11 +1,10 @@
-﻿namespace Domain.IRepositorys
+﻿namespace Common.BaseDomain
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using Microsoft.EntityFrameworkCore;
-    using Domain.Models;
 
     public abstract class BaseRepository<T, TKey> : IRepository<T, TKey> where T : class, IBaseEntity<TKey>
     {
